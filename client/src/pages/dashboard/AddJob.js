@@ -64,17 +64,17 @@ const AddJob = () => {
                value={jobLocation}
                handleChange={handleJobInput}
             />
-            {/*job status*/}
+            {/*leave entitlement*/}
             <FormRowSelect
-               name='status'
+               name='entitlement'
                value={status}
                handleChange={handleJobInput}
                list={statusOptions}
             />
-            {/*job type*/}
+            {/*session*/}
             <FormRowSelect
                name='jobType'
-               labelText='job type'
+               labelText='session'
                value={jobType}
                handleChange={handleJobInput}
                list={jobTypeOptions}
