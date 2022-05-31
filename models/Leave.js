@@ -20,7 +20,8 @@ const LeaveSchema = new mongoose.Schema({
     required: [true, 'Please provide end date leave'],
   },
   annualQuota: {
-    type: Integer,
+    type: Number,
+    validator: Number.isInteger,
     default: 14,
   },
   createdBy: {

@@ -28,5 +28,11 @@ const links = [
     path: 'profile',
     icon: <ImProfile />
   },
+  {
+    id: 5,
+    text: 'apply leave',
+    path: 'add-job',
+    icon: <FaWpforms />
+  },
 ]
 export default links

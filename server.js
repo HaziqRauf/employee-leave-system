@@ -19,6 +19,7 @@ import connectDB from './db/connect.js'
 //routers
 import authRouter from './routes/authRoutes.js'
 import jobsRouter from './routes/jobsRoutes.js'
+import leavesRouter from './routes/leaveRoutes.js'
 
 //Middleware
 import notFoundMiddleware from './middleware/not-found.js'
@@ -47,6 +48,7 @@ app.get('/api/v1', (req,res) => {
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/jobs', authenticateUser, jobsRouter)
+app.use('/api/v1/leaves', authenticateUser, leavesRouter)
 
 app.get('*', (req, res)=>{
   res.sendFile(path.resolve(__dirname,'./client/build', 'index.html'))
