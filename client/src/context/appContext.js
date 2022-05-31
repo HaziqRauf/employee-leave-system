@@ -62,7 +62,7 @@ const initialState = {
   searchType: 'all',
   sort: 'latest',
   sortOptions: ['latest','oldest','a-z','z-a'],
-  fromdate: moment().format("DD MMMM YYYY"),
+  fromdate: moment().format("yyyy-MM-dd"),
   todate: moment().format("DD MMMM YYYY")
 }
 
