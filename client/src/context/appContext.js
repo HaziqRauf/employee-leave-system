@@ -1,5 +1,6 @@
 import React, {useReducer, useContext} from 'react';
 import reducer from './reducer';
+import moment from 'moment'
 import axios from 'axios'
 import {
   DISPLAY_ALERT, 
@@ -60,7 +61,9 @@ const initialState = {
   searchStatus: 'all',
   searchType: 'all',
   sort: 'latest',
-  sortOptions: ['latest','oldest','a-z','z-a']
+  sortOptions: ['latest','oldest','a-z','z-a'],
+  fromdate: moment().format("DD MMMM YYYY"),
+  todate: moment().format("DD MMMM YYYY")
 }
 
 const AppContext = React.createContext()
