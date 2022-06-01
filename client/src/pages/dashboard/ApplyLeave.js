@@ -15,11 +15,10 @@ const AddJob = () => {
     isEditing,
     showAlert,
     displayAlert,
-    position,
-    company,
-    jobLocation,
-    jobType,
-    jobTypeOptions,
+    leaveEntitlement,
+    session,
+    leaveOptions,
+    sessionOptions,
     status,
     statusOptions,
     handleChange,
@@ -27,13 +26,16 @@ const AddJob = () => {
     createJob,
     editJob,
     fromdate,
-    todate
+    todate,
+    balance,
+    disabledInput,
+    reason
   } = useAppContext()
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if(!position || !company || !jobLocation) {
+    if(!fromdate || !todate) {
       displayAlert()
       return
     }
@@ -48,52 +50,63 @@ const AddJob = () => {
     const value = e.target.value
     handleChange({ name, value })
   }
+  const handleDate = (e) => {
+    const duration = todate - fromdate
+    console.log(fromdate)
+    console.log(duration)
+  }
   return (
     <Wrapper>
       <form className='form'>
-        <h3>{ isEditing ? 'edit job' : 'apply leave' }</h3>
+        <h3>{ isEditing ? 'edit leave' : 'apply leave' }</h3>
           {showAlert && <Alert />}
           <div className='form-center'>
-            <FormRow
-               type='text'
-               name='position'
-               value={position}
+            {/*leave entitlement*/}
+            <FormRowSelect
+               name='entitlement'
+               value={leaveEntitlement}
                handleChange={handleJobInput}
+               list={leaveOptions}
             />
             <FormRow
+               name='balance'
+               defaultValue={balance}
+               value={balance}
+               disabledInput={disabledInput}
+            />
+            <FormRow
+               labelText='from'
                type='date'
-               name='from'
+               name='fromdate'
                value={fromdate}
                handleChange={handleJobInput}
-               onClick={()=> !modalIsOpen}
             />
             <FormRow
+               labelText='to'
                type='date'
-               name='to'
+               name='todate'
                value={todate}
                handleChange={handleJobInput}
             />
             <FormRow
-               type='text'
-               labelText='job location'
-               name='jobLocation'
-               value={jobLocation}
-               handleChange={handleJobInput}
-            />
-            {/*leave entitlement*/}
-            <FormRowSelect
-               name='entitlement'
-               value={status}
-               handleChange={handleJobInput}
-               list={statusOptions}
+               name='day'
+               defaultValue={balance}
+               value={balance}
+               disabledInput={disabledInput}
             />
             {/*session*/}
             <FormRowSelect
-               name='jobType'
+               name='session'
                labelText='session'
-               value={jobType}
+               value={session}
                handleChange={handleJobInput}
-               list={jobTypeOptions}
+               list={sessionOptions}
+            />
+            <FormRow
+               type='textarea'
+               name='reason'
+               value={reason}
+               handleChange={handleJobInput}
             />
             <div className='btn-container'>
                <button

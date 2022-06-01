@@ -18,7 +18,7 @@ const links = [
   },
   {
     id: 3,
-    text: 'apply leave',
+    text: 'add job',
     path: 'add-job',
     icon: <FaWpforms />
   },
@@ -31,7 +31,7 @@ const links = [
   {
     id: 5,
     text: 'apply leave',
-    path: 'add-job',
+    path: 'apply-leave',
     icon: <FaWpforms />
   },
 ]

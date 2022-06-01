@@ -2,10 +2,12 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import {Register, Landing, Error, ProtectedRoute} from './pages';
 import {
   AllJobs,
+  AllLeaves,
   Profile,
   SharedLayout,
   Stats,
-  AddJob
+  AddJob,
+  ApplyLeave
 } from './pages/dashboard';
 
 function App() {
@@ -20,7 +22,9 @@ function App() {
         }>
         <Route index element={<Stats />} />
         <Route path='all-jobs' element={<AllJobs />} />
+        <Route path='all-leaves' element={<AllLeaves />} />
         <Route path='add-job' element={<AddJob />} />
+        <Route path='apply-leave' element={<ApplyLeave />} />
         <Route path='profile' element={<Profile />} />
       </Route>
       <Route path="/register" element={<Register />} />

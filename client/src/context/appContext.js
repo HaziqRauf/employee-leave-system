@@ -49,8 +49,8 @@ const initialState = {
   position: '',
   company: '',
   jobLocation:  userLocation || '',
-  jobTypeOptions: ['Full Day', '1st Half Day', '2nd Half Day'],
-  statusOptions: ['medical', 'annual'],
+  sessionOptions: ['Full Day', '1st Half Day', '2nd Half Day'],
+  leaveOptions: ['Annual', 'Medical'],
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -62,8 +62,15 @@ const initialState = {
   searchType: 'all',
   sort: 'latest',
   sortOptions: ['latest','oldest','a-z','z-a'],
-  fromdate: moment().format("yyyy-MM-dd"),
-  todate: moment().format("DD MMMM YYYY")
+  fromdate: moment().format("yyyy-MM-DD"),
+  todate: moment().format("yyyy-MM-DD"),
+  balance: 0,
+  disabledInput: true,
+  reason: '',
+  jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
+  jobType: 'full-time',
+  statusOptions: ['interview', 'declined', 'pending'],
+  status: 'pending',
 }
 
 const AppContext = React.createContext()
