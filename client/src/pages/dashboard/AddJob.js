@@ -1,15 +1,8 @@
-import {
-  FormRow,
-  FormRowSelect,
-  Alert,
-  CalendarContainer
-} from '../../components'
-import {useState} from 'react'
+import {FormRow, FormRowSelect, Alert} from '../../components'
 import {useAppContext} from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
 const AddJob = () => {
-  const [modalIsOpen, setIsOpen] = useState(false)
   const {
     isLoading,
     isEditing,
@@ -26,8 +19,6 @@ const AddJob = () => {
     clearValues,
     createJob,
     editJob,
-    fromdate,
-    todate
   } = useAppContext()
 
   const handleSubmit = (e) => {
@@ -51,7 +42,7 @@ const AddJob = () => {
   return (
     <Wrapper>
       <form className='form'>
-        <h3>{ isEditing ? 'edit job' : 'apply leave' }</h3>
+        <h3>{ isEditing ? 'edit job' : 'add job' }</h3>
           {showAlert && <Alert />}
           <div className='form-center'>
             <FormRow
@@ -61,16 +52,9 @@ const AddJob = () => {
                handleChange={handleJobInput}
             />
             <FormRow
-               type='date'
-               name='from'
-               value={fromdate}
-               handleChange={handleJobInput}
-               onClick={()=> !modalIsOpen}
-            />
-            <FormRow
-               type='date'
-               name='to'
-               value={todate}
+               type='text'
+               name='company'
+               value={company}
                handleChange={handleJobInput}
             />
             <FormRow
@@ -80,17 +64,17 @@ const AddJob = () => {
                value={jobLocation}
                handleChange={handleJobInput}
             />
-            {/*leave entitlement*/}
+            {/*job status*/}
             <FormRowSelect
-               name='entitlement'
+               name='status'
                value={status}
                handleChange={handleJobInput}
                list={statusOptions}
             />
-            {/*session*/}
+            {/*job type*/}
             <FormRowSelect
                name='jobType'
-               labelText='session'
+               labelText='job type'
                value={jobType}
                handleChange={handleJobInput}
                list={jobTypeOptions}

@@ -8,6 +8,7 @@ import BigSidebar from '../components/BigSidebar';
 import SearchContainer from '../components/SearchContainer';
 import Loading from '../components/Loading';
 import JobsContainer from '../components/JobsContainer';
+import LeavesContainer from '../components/LeavesContainer';
 import StatsContainer from '../components/StatsContainer';
 import ChartsContainer from '../components/ChartsContainer';
 
@@ -22,6 +23,7 @@ export {
   SearchContainer,
   Loading,
   JobsContainer,
+  LeavesContainer,
   StatsContainer,
   ChartsContainer,
 }

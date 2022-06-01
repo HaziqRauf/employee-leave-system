@@ -6,6 +6,11 @@ const LeaveSchema = new mongoose.Schema({
     enum: ['annual', 'medical'],
     default: 'annual',
   },
+  status: {
+    type: String,
+    enum: ['interview', 'declined', 'pending'],
+    default: 'pending',
+  },
   session: {
     type: String,
     enum: ['full day', '1st half day', '2nd half day'],

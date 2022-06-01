@@ -34,6 +34,11 @@ import {
   APPLY_LEAVE_ERROR,
   GET_LEAVES_BEGIN,
   GET_LEAVES_SUCCESS,
+  SET_EDIT_LEAVE,
+  DELETE_LEAVE_BEGIN,
+  EDIT_LEAVE_BEGIN,
+  EDIT_LEAVE_SUCCESS,
+  EDIT_LEAVE_ERROR,
 } from './actions';
 
 const token = localStorage.getItem('token')
@@ -51,6 +56,7 @@ const initialState = {
   showSidebar: false,
   isEditing: false,
   editJobId: '',
+  editLeaveId: '',
   position: '',
   company: '',
   jobLocation:  userLocation || '',
@@ -58,6 +64,8 @@ const initialState = {
   session: 'full day',
   leaveOptions: ['annual', 'medical'],
   leaveEntitlement: 'annual',
+  leaves: [],
+  totalLeaves: 0,
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -259,28 +267,63 @@ const AppProvider = ({children}) => {
     const getLeaves = async () => {
       const { page, search, searchStatus, searchType, sort } = state
      
-      console.log(state)
-      let url = `/leaves?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
+      let url = `/leaves?page=${page}&leaveType=${searchStatus}&session=${searchType}&sort=${sort}`
+      // let url = `leaves`
       if(search) {
         url = url + `&search=${search}`
       }
 
-      dispatch({ type: GET_JOBS_BEGIN })
+      dispatch({ type: GET_LEAVES_BEGIN })
       try {
         const { data } = await authFetch(url)
-        const { jobs, totalJobs, numOfPages } = data
+        const { leaves, totalLeaves, numOfPages } = data
         dispatch({
-          type: GET_JOBS_SUCCESS,
+          type: GET_LEAVES_SUCCESS,
           payload: {
-            jobs,
-            totalJobs,
+            leaves,
+            totalLeaves,
             numOfPages,
           }
         })
       } catch(error) {
-        logoutUser()
+        console.log(error)
+        // logoutUser()
       }
       clearAlert()
+    }
+    const setEditLeave = (id) => {
+      dispatch({ type: SET_EDIT_LEAVE, payload: { id } })
+    }
+    const editLeave = async () => {
+      dispatch({ type: EDIT_LEAVE_BEGIN })
+      try {
+        const { session, entitlement, fromdate, todate, status } = state
+        await authFetch.patch(`/leaves/${state.editLeaveId}`, {
+          session,
+          entitlement,
+          fromdate,
+          todate,
+          status,
+        })
+        dispatch({ type: EDIT_LEAVE_SUCCESS })
+        dispatch({ type: CLEAR_VALUES })
+      } catch(error) {
+        if(error.response.status === 401) return
+        dispatch({
+          type: EDIT_LEAVE_ERROR,
+          payload: { msg: error.response.data.msg },
+        })
+      }
+      clearAlert()
+    }
+    const deleteLeave = async (jobId) => {
+      dispatch({ type: DELETE_LEAVE_BEGIN })
+      try {
+        await authFetch.delete(`/leaves/${jobId}`)
+        getLeaves()
+      } catch(error) {
+        logoutUser()
+      }
     }
     const setEditJob = (id) => {
       dispatch({ type: SET_EDIT_JOB, payload: { id } })
@@ -356,6 +399,9 @@ const AppProvider = ({children}) => {
           setEditJob,
           deleteJob,
           editJob,
+          setEditLeave,
+          deleteLeave,
+          editLeave,
           showStats,
           clearFilters,
           changePage

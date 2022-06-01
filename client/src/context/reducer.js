@@ -30,6 +30,11 @@ import {
   APPLY_LEAVE_ERROR,
   GET_LEAVES_BEGIN,
   GET_LEAVES_SUCCESS,
+  SET_EDIT_LEAVE,
+  DELETE_LEAVE_BEGIN,
+  EDIT_LEAVE_BEGIN,
+  EDIT_LEAVE_SUCCESS,
+  EDIT_LEAVE_ERROR,
 } from './actions';
 
 import {initialState} from './appContext'
@@ -122,6 +127,7 @@ const reducer = (state, action) => {
      const initialState = {
        isEditing: false,
        editJobId: '',
+       editLeaveId: '',
        position: '',
        company: '',
        jobLocation: state.userLocation || '',
@@ -201,6 +207,43 @@ const reducer = (state, action) => {
        leaves: action.payload.leaves,
        totalLeaves: action.payload.totalLeaves,
        numOfPages: action.payload.numOfPages,
+     }
+ }
+ if(action.type === SET_EDIT_LEAVE) {
+   const leave = state.leaves.find((leave)=> leave._id === action.payload.id)
+   const {_id, session, entitlement, fromdate, todate, annualQuota, status} = leave
+   return {
+     ...state,
+     isEditing: true,
+     editLeaveId: _id,
+     session,
+     entitlement,
+     fromdate,
+     todate,
+     annualQuota,
+     status,
+   }
+ }
+ if(action.type === DELETE_LEAVE_BEGIN){
+   return { ...state, isLoading: true }
+ }
+ if(action.type === EDIT_LEAVE_BEGIN){
+     return { ...state, isLoading: true }
+ }
+ if(action.type === EDIT_LEAVE_SUCCESS){
+     return {...state,
+       isLoading: false,
+       showAlert: true,
+       alertType: 'success',
+       alertText: 'Leave Updated!',
+     }
+ }
+ if(action.type === EDIT_LEAVE_ERROR){
+     return {...state,
+       isLoading: false,
+       showAlert: true,
+       alertType: 'danger',
+       alertText: action.payload.msg,
      }
  }
  if(action.type === SET_EDIT_JOB) {

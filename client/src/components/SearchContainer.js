@@ -12,8 +12,8 @@ const SearchContainer = () => {
     sortOptions,
     handleChange,
     clearFilters,
-    jobTypeOptions,
-    statusOptions,
+    leaveOptions,
+    sessionOptions,
   } = useAppContext()
   const handleSearch = (e) => {
     if(isLoading) return
@@ -39,14 +39,14 @@ const SearchContainer = () => {
             name='searchStatus'
             value={searchStatus}
             handleChange={handleSearch}
-            list={['all',...statusOptions]}
+            list={['all',...leaveOptions]}
           />
           <FormRowSelect
             labelText='type'
             name='searchType'
             value={searchType}
             handleChange={handleSearch}
-            list={['all',...jobTypeOptions]}
+            list={['all',...sessionOptions]}
           />
           <FormRowSelect
             name='sort'

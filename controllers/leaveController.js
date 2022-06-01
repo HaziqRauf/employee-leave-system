@@ -17,22 +17,22 @@ const applyLeave = async (req, res) => {
 }
 
 const getAllLeaves = async (req, res) => {
-  const { status, leaveType, sort, search } = req.query
+  const { session, leaveType, sort} = req.query
   const queryObject = {
     createdBy: req.user.userId,
   }
   // const filter = { createdBy: mongoose.Types.ObjectId(req.user.userId) } // empty filter means "match all documents"
   // add stuff based on conditions
-  if(status && status !== 'all') { //checking if status is valid
+  if(session && session !== 'all') { //checking if status is valid
   // if(status !== 'all'){
-    queryObject.status = status
+    queryObject.session = session
   }
-  if(jobType && jobType !== 'all'){
-    queryObject.jobType = jobType
+  if(leaveType && leaveType !== 'all'){
+    queryObject.entitlement = leaveType
   }
-  if(search){
-      queryObject.position = { $regex: search, $options: 'i' }
-  }
+  /*if(search){
+      queryObject.fromdate = { $regex: search, $options: 'i' }
+  }*/
 
   // NO AWAIT
   let result = Leave.find(queryObject)

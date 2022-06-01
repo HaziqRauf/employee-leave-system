@@ -1,10 +1,10 @@
-import {JobsContainer, SearchContainer } from '../../components'
+import {LeavesContainer, SearchContainer } from '../../components'
 
-const AllJobs = () => {
+const AllLeaves = () => {
   return <>
        <SearchContainer />
-       <JobsContainer />
+       <LeavesContainer />
     </>
 }
 
-export default AllJobs
+export default AllLeaves
