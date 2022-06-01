@@ -28,7 +28,10 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
-  CHANGE_PAGE
+  CHANGE_PAGE,
+  APPLY_LEAVE_BEGIN,
+  APPLY_LEAVE_SUCCESS,
+  APPLY_LEAVE_ERROR,
 } from './actions';
 
 const token = localStorage.getItem('token')
@@ -49,8 +52,10 @@ const initialState = {
   position: '',
   company: '',
   jobLocation:  userLocation || '',
-  sessionOptions: ['Full Day', '1st Half Day', '2nd Half Day'],
-  leaveOptions: ['Annual', 'Medical'],
+  sessionOptions: ['full day', '1st half day', '2nd half day'],
+  session: 'full day',
+  leaveOptions: ['annual', 'medical'],
+  leaveEntitlement: 'annual',
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
@@ -202,6 +207,29 @@ const AppProvider = ({children}) => {
       }
       clearAlert()
     }
+    const applyLeave = async () => {
+      dispatch({ type: APPLY_LEAVE_BEGIN })
+      try {
+        const {leaveEntitlement, fromdate, todate, session, reason} = state
+        console.log(state)
+        await authFetch.post('/leaves', {
+          leaveEntitlement,
+          fromdate,
+          todate,
+          session,
+          reason,
+        })
+        dispatch({ type: APPLY_LEAVE_SUCCESS })
+        dispatch({ type: CLEAR_VALUES })
+      } catch (error) {
+        if(error.response.status === 401) return
+          dispatch({
+            type: APPLY_LEAVE_ERROR,
+            payload: { msg: error.response.data.msg }
+          })
+      }
+      clearAlert()
+    }
     const getJobs = async () => {
       const { page, search, searchStatus, searchType, sort } = state
      
@@ -295,6 +323,7 @@ const AppProvider = ({children}) => {
           handleChange,
           clearValues,
           createJob,
+          applyLeave,
           getJobs,
           setEditJob,
           deleteJob,

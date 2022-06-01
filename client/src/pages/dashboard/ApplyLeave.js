@@ -2,14 +2,12 @@ import {
   FormRow,
   FormRowSelect,
   Alert,
-  CalendarContainer
 } from '../../components'
 import {useState} from 'react'
 import {useAppContext} from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
-const AddJob = () => {
-  const [modalIsOpen, setIsOpen] = useState(false)
+const ApplyLeave = () => {
   const {
     isLoading,
     isEditing,
@@ -29,7 +27,8 @@ const AddJob = () => {
     todate,
     balance,
     disabledInput,
-    reason
+    reason,
+    applyLeave
   } = useAppContext()
 
   const handleSubmit = (e) => {
@@ -43,7 +42,7 @@ const AddJob = () => {
       editJob()
       return
     }
-    createJob()
+    applyLeave()
   }
   const handleJobInput = (e) => {
     const name = e.target.name
@@ -97,7 +96,6 @@ const AddJob = () => {
             {/*session*/}
             <FormRowSelect
                name='session'
-               labelText='session'
                value={session}
                handleChange={handleJobInput}
                list={sessionOptions}
@@ -132,4 +130,4 @@ const AddJob = () => {
     </Wrapper>
   )
 }
-export default AddJob
+export default ApplyLeave

@@ -11,11 +11,11 @@ const LeaveSchema = new mongoose.Schema({
     enum: ['full day', '1st half day', '2nd half day'],
     default: 'full day',
   },
-  from: {
+  fromdate: {
     type: Date,
     required: [true, 'Please provide start date leave'],
   },
-  to: {
+  todate: {
     type: Date,
     required: [true, 'Please provide end date leave'],
   },

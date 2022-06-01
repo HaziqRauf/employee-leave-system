@@ -6,9 +6,9 @@ import {BadRequestError, NotFoundError, UnAuthenticatedError} from '../errors/in
 import checkPermissions from '../utils/checkPermissions.js'
 
 const applyLeave = async (req, res) => {
-  const {from, to} = req.body
+  const {fromdate, todate} = req.body
 
-  if(!from|| !to) {
+  if(!fromdate|| !todate) {
     throw new BadRequestError('Please provide all values')
   }
   req.body.createdBy = req.user.userId

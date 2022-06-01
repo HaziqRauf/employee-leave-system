@@ -24,7 +24,10 @@ import {
   SHOW_STATS_BEGIN,
   SHOW_STATS_SUCCESS,
   CLEAR_FILTERS,
-  CHANGE_PAGE
+  CHANGE_PAGE,
+  APPLY_LEAVE_BEGIN,
+  APPLY_LEAVE_SUCCESS,
+  APPLY_LEAVE_ERROR,
 } from './actions';
 
 import {initialState} from './appContext'
@@ -140,6 +143,30 @@ const reducer = (state, action) => {
  }
  if(action.type === CREATE_JOB_ERROR){
      return {...state,
+       isLoading: false,
+       showAlert: true,
+       alertType: 'danger',
+       alertText: action.payload.msg,
+     }
+ }
+ if(action.type === APPLY_LEAVE_BEGIN){
+     return {
+       ...state,
+       isLoading: true,
+     }
+ }
+ if(action.type === APPLY_LEAVE_SUCCESS){
+     return {
+       ...state,
+       isLoading: false,
+       showAlert: true,
+       alertType: 'success',
+       alertText: 'New leave has been applied!',
+     }
+ }
+ if(action.type === APPLY_LEAVE_ERROR){
+     return {
+       ...state,
        isLoading: false,
        showAlert: true,
        alertType: 'danger',
