@@ -12,7 +12,7 @@ const links = [
   },
   {
     id: 2,
-    text: 'all leaves',
+    text: 'all jobs',
     path: 'all-jobs',
     icon: <MdQueryStats />
   },
@@ -30,6 +30,12 @@ const links = [
   },
   {
     id: 5,
+    text: 'all leaves',
+    path: 'all-leaves',
+    icon: <MdQueryStats />
+  },
+  {
+    id: 6,
     text: 'apply leave',
     path: 'apply-leave',
     icon: <FaWpforms />

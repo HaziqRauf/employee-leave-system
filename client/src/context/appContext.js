@@ -32,6 +32,8 @@ import {
   APPLY_LEAVE_BEGIN,
   APPLY_LEAVE_SUCCESS,
   APPLY_LEAVE_ERROR,
+  GET_LEAVES_BEGIN,
+  GET_LEAVES_SUCCESS,
 } from './actions';
 
 const token = localStorage.getItem('token')
@@ -211,7 +213,6 @@ const AppProvider = ({children}) => {
       dispatch({ type: APPLY_LEAVE_BEGIN })
       try {
         const {leaveEntitlement, fromdate, todate, session, reason} = state
-        console.log(state)
         await authFetch.post('/leaves', {
           leaveEntitlement,
           fromdate,
@@ -234,6 +235,32 @@ const AppProvider = ({children}) => {
       const { page, search, searchStatus, searchType, sort } = state
      
       let url = `/jobs?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
+      if(search) {
+        url = url + `&search=${search}`
+      }
+
+      dispatch({ type: GET_JOBS_BEGIN })
+      try {
+        const { data } = await authFetch(url)
+        const { jobs, totalJobs, numOfPages } = data
+        dispatch({
+          type: GET_JOBS_SUCCESS,
+          payload: {
+            jobs,
+            totalJobs,
+            numOfPages,
+          }
+        })
+      } catch(error) {
+        logoutUser()
+      }
+      clearAlert()
+    }
+    const getLeaves = async () => {
+      const { page, search, searchStatus, searchType, sort } = state
+     
+      console.log(state)
+      let url = `/leaves?page=${page}&status=${searchStatus}&jobType=${searchType}&sort=${sort}`
       if(search) {
         url = url + `&search=${search}`
       }
@@ -325,6 +352,7 @@ const AppProvider = ({children}) => {
           createJob,
           applyLeave,
           getJobs,
+          getLeaves,
           setEditJob,
           deleteJob,
           editJob,

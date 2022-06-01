@@ -67,8 +67,8 @@ const getAllLeaves = async (req, res) => {
 
 const updateLeave = async (req, res) => {
   const { id: jobId } = req.params
-  const { from, to } = req.body
-  if(!from || !to) {
+  const { fromdate, todate } = req.body
+  if(!fromdate || !todate) {
     throw new BadRequestError('Please provide all values')
   }
   const leave = await Leave.findOne({ _id: jobId })

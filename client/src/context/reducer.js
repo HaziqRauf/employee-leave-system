@@ -28,6 +28,8 @@ import {
   APPLY_LEAVE_BEGIN,
   APPLY_LEAVE_SUCCESS,
   APPLY_LEAVE_ERROR,
+  GET_LEAVES_BEGIN,
+  GET_LEAVES_SUCCESS,
 } from './actions';
 
 import {initialState} from './appContext'
@@ -184,6 +186,20 @@ const reducer = (state, action) => {
        isLoading: false,
        jobs: action.payload.jobs,
        totalJobs: action.payload.totalJobs,
+       numOfPages: action.payload.numOfPages,
+     }
+ }
+ if(action.type === GET_LEAVES_BEGIN){
+     return {...state,
+       isLoading: true,
+       showAlert: false
+     }
+ }
+ if(action.type === GET_LEAVES_SUCCESS){
+     return {...state,
+       isLoading: false,
+       leaves: action.payload.leaves,
+       totalLeaves: action.payload.totalLeaves,
        numOfPages: action.payload.numOfPages,
      }
  }
