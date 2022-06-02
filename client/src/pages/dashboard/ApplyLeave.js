@@ -4,11 +4,12 @@ import {
   Alert,
 } from '../../components'
 import moment from 'moment'
-import {useState} from 'react'
+import {useEffect, useRef} from 'react'
 import {useAppContext} from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
 const ApplyLeave = () => {
+  let period = useRef(0)
   const {
     isLoading,
     isEditing,
@@ -49,12 +50,15 @@ const ApplyLeave = () => {
   const handleJobInput = (e) => {
     const name = e.target.name
     const value = e.target.value
-    const y = moment(todate)
-    const x = moment(fromdate)
-    const duration = moment.duration(y.diff(x)).as('days')
-    console.log(duration)
     handleChange({ name, value })
   }
+  const handleDate = () => {
+    const y = moment(todate)
+    const x = moment(fromdate)
+    period.current = moment.duration(y.diff(x)).as('days')
+  }
+  useEffect(() => {
+  },[todate, fromdate])
   return (
     <Wrapper>
       <form className='form'>
@@ -90,8 +94,9 @@ const ApplyLeave = () => {
             />
             <FormRow
                name='day'
-               defaultValue={balance}
-               value={balance}
+               value={period.current}
+               handleChange={handleDate}
+               onBlur={handleDate(period.current)}
                disabledInput={disabledInput}
             />
             {/*session*/}
