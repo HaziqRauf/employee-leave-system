@@ -32,6 +32,11 @@ const UserSchema = new mongoose.Schema({
     minlength: 6,
     select: false,
   },
+  annualQuota: {
+    type: Number,
+    validator: Number.isInteger,
+    default: 14,
+  },
   location: {
     type: String,
     trim: true,

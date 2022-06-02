@@ -66,6 +66,7 @@ const reducer = (state, action) => {
        user: action.payload.user,
        userLocation: action.payload.location,
        jobLocation: action.payload.location,
+       annualQuota: action.payload.user.annualQuota,
        showAlert: true,
        alertType: 'success',
        alertText: action.payload.alertText,

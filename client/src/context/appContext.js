@@ -44,6 +44,7 @@ import {
 const token = localStorage.getItem('token')
 const user = localStorage.getItem('user')
 const userLocation = localStorage.getItem('location')
+const annualQuota = localStorage.getItem('annualQuota')
 
 const initialState = {
   isLoading: false,
@@ -79,7 +80,7 @@ const initialState = {
   sortOptions: ['latest','oldest','a-z','z-a'],
   fromdate: moment().format("yyyy-MM-DD"),
   todate: moment().format("yyyy-MM-DD"),
-  balance: 0,
+  balance: annualQuota || 0,
   disabledInput: true,
   reason: '',
   jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
@@ -132,16 +133,18 @@ const AppProvider = ({children}) => {
        })
      }, 3000)
  }
- const addUserToLocalStorage = ({user,token,location}) => {
+ const addUserToLocalStorage = ({user,token,location,annualQuota}) => {
     localStorage.setItem('user', JSON.stringify(user))
     localStorage.setItem('token', token)
     localStorage.setItem('location', location)
+    localStorage.setItem('annualQuota', annualQuota)
  }
 
  const removeUserFromLocalStorage = () => {
     localStorage.removeItem('user')
     localStorage.removeItem('token')
     localStorage.removeItem('location')
+    localStorage.removeItem('annualQuota')
  }
     const setupUser = async ({currentUser, endPoint, alertText}) => {
      dispatch({type: SETUP_USER_BEGIN})
@@ -173,12 +176,12 @@ const AppProvider = ({children}) => {
         dispatch({type: UPDATE_USER_BEGIN})
       try {
         const {data} = await authFetch.patch('auth/updateUser',currentUser)
-        const {user, location, token} = data
+        const {user, location, token, annualQuota} = data
         dispatch({
           type: UPDATE_USER_SUCCESS,
-          payload:{user, location, token}
+          payload:{user, location, token, annualQuota}
         })
-        addUserToLocalStorage({user, location, token})
+        addUserToLocalStorage({user, location, token, annualQuota})
       } catch (error) {
         if(error.response.status !== 401) {
           dispatch({
