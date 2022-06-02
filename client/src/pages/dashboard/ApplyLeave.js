@@ -95,10 +95,11 @@ const ApplyLeave = () => {
                handleChange={handleJobInput}
             />
             <FormRow
-               name='day'
+               name='period.current'
+               labelText='day'
                value={period.current}
                handleChange={handleDate}
-               onBlur={handleDate(period.current)}
+               onBlur={handleDate()}
                disabledInput={disabledInput}
             />
             {/*session*/}

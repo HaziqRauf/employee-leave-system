@@ -1,4 +1,4 @@
-const FormRow = ({type, name, value, handleChange, labelText, onBlur, disabledInput}) => {
+const FormRow = ({type, name, value, handleChange, labelText, onBlur, refer, disabledInput}) => {
   return (
     <div className='form-row'>
       <label htmlFor={name} className='form-label'>
@@ -11,6 +11,7 @@ const FormRow = ({type, name, value, handleChange, labelText, onBlur, disabledIn
         onChange={handleChange}
         className='form-input'
         onBlur={onBlur}
+        ref={refer}
         disabled={disabledInput}
       />
     </div>

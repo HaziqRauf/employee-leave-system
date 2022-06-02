@@ -225,14 +225,13 @@ const AppProvider = ({children}) => {
     const applyLeave = async () => {
       dispatch({ type: APPLY_LEAVE_BEGIN })
       try {
-        const {entitlement, fromdate, todate, session, period, reason} = state
+        const {entitlement, fromdate, todate, session, reason} = state
         console.log(state)
         await authFetch.post('/leaves', {
           entitlement,
           fromdate,
           todate,
           session,
-          period,
           reason,
         })
         dispatch({ type: APPLY_LEAVE_SUCCESS })
