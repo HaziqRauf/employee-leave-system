@@ -118,7 +118,8 @@ const reducer = (state, action) => {
      }
  }
  if(action.type === HANDLE_CHANGE){
-     return {...state,
+     return {
+       ...state,
        page: 1,
        [action.payload.name]: action.payload.value,
      }
@@ -211,13 +212,13 @@ const reducer = (state, action) => {
  }
  if(action.type === SET_EDIT_LEAVE) {
    const leave = state.leaves.find((leave)=> leave._id === action.payload.id)
-   const {_id, session, entitlement, fromdate, todate, annualQuota, status} = leave
+   const {_id, session, leaveEntitlement, fromdate, todate, annualQuota, status} = leave
    return {
      ...state,
      isEditing: true,
      editLeaveId: _id,
      session,
-     entitlement,
+     leaveEntitlement,
      fromdate,
      todate,
      annualQuota,

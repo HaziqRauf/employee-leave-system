@@ -16,7 +16,7 @@ const Leave = ({
   status
 }) => {
   const { setEditLeave, deleteLeave } = useAppContext()
-  const format = 'DD MM YYYY'
+  const format = 'YYYY-MM-DD'
   let date = moment(createdAt)
   date = date.format(format)
   fromdate = moment(fromdate).format(format)

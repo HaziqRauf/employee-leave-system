@@ -3,6 +3,7 @@ import {
   FormRowSelect,
   Alert,
 } from '../../components'
+import moment from 'moment'
 import {useState} from 'react'
 import {useAppContext} from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
@@ -13,7 +14,7 @@ const ApplyLeave = () => {
     isEditing,
     showAlert,
     displayAlert,
-    leaveEntitlement,
+    entitlement,
     session,
     leaveOptions,
     sessionOptions,
@@ -23,6 +24,7 @@ const ApplyLeave = () => {
     clearValues,
     createJob,
     editJob,
+    editLeave,
     fromdate,
     todate,
     balance,
@@ -39,7 +41,7 @@ const ApplyLeave = () => {
       return
     }
     if(isEditing){
-      editJob()
+      editLeave()
       return
     }
     applyLeave()
@@ -47,12 +49,11 @@ const ApplyLeave = () => {
   const handleJobInput = (e) => {
     const name = e.target.name
     const value = e.target.value
-    handleChange({ name, value })
-  }
-  const handleDate = (e) => {
-    const duration = todate - fromdate
-    console.log(fromdate)
+    const y = moment(todate)
+    const x = moment(fromdate)
+    const duration = moment.duration(y.diff(x)).as('days')
     console.log(duration)
+    handleChange({ name, value })
   }
   return (
     <Wrapper>
@@ -63,7 +64,7 @@ const ApplyLeave = () => {
             {/*leave entitlement*/}
             <FormRowSelect
                name='entitlement'
-               value={leaveEntitlement}
+               value={entitlement}
                handleChange={handleJobInput}
                list={leaveOptions}
             />
@@ -74,16 +75,16 @@ const ApplyLeave = () => {
                disabledInput={disabledInput}
             />
             <FormRow
+               name='fromdate'
                labelText='from'
                type='date'
-               name='fromdate'
                value={fromdate}
                handleChange={handleJobInput}
             />
             <FormRow
+               name='todate'
                labelText='to'
                type='date'
-               name='todate'
                value={todate}
                handleChange={handleJobInput}
             />

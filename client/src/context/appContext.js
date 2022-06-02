@@ -63,7 +63,7 @@ const initialState = {
   sessionOptions: ['full day', '1st half day', '2nd half day'],
   session: 'full day',
   leaveOptions: ['annual', 'medical'],
-  leaveEntitlement: 'annual',
+  entitlement: 'annual',
   leaves: [],
   totalLeaves: 0,
   jobs: [],
@@ -220,9 +220,9 @@ const AppProvider = ({children}) => {
     const applyLeave = async () => {
       dispatch({ type: APPLY_LEAVE_BEGIN })
       try {
-        const {leaveEntitlement, fromdate, todate, session, reason} = state
+        const {entitlement, fromdate, todate, session, reason} = state
         await authFetch.post('/leaves', {
-          leaveEntitlement,
+          entitlement,
           fromdate,
           todate,
           session,
