@@ -29,6 +29,7 @@ const ApplyLeave = () => {
     fromdate,
     todate,
     balance,
+    countDay,
     disabledInput,
     reason,
     applyLeave
@@ -58,6 +59,7 @@ const ApplyLeave = () => {
     period.current = moment.duration(y.diff(x)).as('days')
   }
   useEffect(() => {
+    period.current = countDay
   },[todate, fromdate])
   return (
     <Wrapper>

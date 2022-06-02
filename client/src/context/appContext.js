@@ -81,6 +81,7 @@ const initialState = {
   fromdate: moment().format("yyyy-MM-DD"),
   todate: moment().format("yyyy-MM-DD"),
   balance: annualQuota || 0,
+  countDay: 0,
   disabledInput: true,
   reason: '',
   jobTypeOptions: ['full-time', 'part-time', 'remote', 'internship'],
@@ -151,11 +152,12 @@ const AppProvider = ({children}) => {
      try {
         const {data} = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
          const {user, token, location} = data
+         const annualQuota = user.annualQuota
          dispatch({
            type: SETUP_USER_SUCCESS,
            payload: {user, token, location, alertText},
          })
-        addUserToLocalStorage({user, token, location})
+        addUserToLocalStorage({user, token, location, annualQuota})
      }
      catch (error) {
          dispatch({
@@ -176,12 +178,12 @@ const AppProvider = ({children}) => {
         dispatch({type: UPDATE_USER_BEGIN})
       try {
         const {data} = await authFetch.patch('auth/updateUser',currentUser)
-        const {user, location, token, annualQuota} = data
+        const {user, location, token} = data
         dispatch({
           type: UPDATE_USER_SUCCESS,
-          payload:{user, location, token, annualQuota}
+          payload:{user, location, token}
         })
-        addUserToLocalStorage({user, location, token, annualQuota})
+        addUserToLocalStorage({user, location, token})
       } catch (error) {
         if(error.response.status !== 401) {
           dispatch({
@@ -223,12 +225,14 @@ const AppProvider = ({children}) => {
     const applyLeave = async () => {
       dispatch({ type: APPLY_LEAVE_BEGIN })
       try {
-        const {entitlement, fromdate, todate, session, reason} = state
+        const {entitlement, fromdate, todate, session, period, reason} = state
+        console.log(state)
         await authFetch.post('/leaves', {
           entitlement,
           fromdate,
           todate,
           session,
+          period,
           reason,
         })
         dispatch({ type: APPLY_LEAVE_SUCCESS })

@@ -24,7 +24,6 @@ const register = async (req, res) => {
      },
      token,
      location: user.location,
-     annualQuota: user.annualQuota,
    })
 }
 const login = async (req,res) => {
@@ -43,7 +42,7 @@ const login = async (req,res) => {
   }
   const token = user.createJWT()
   user.password = undefined  
-    res.status(StatusCodes.OK).json({user, token, location: user.location, annualQuota: user.annualQuota})
+    res.status(StatusCodes.OK).json({user, token, location: user.location})
 }
 const updateUser = async (req,res) => {
   const {email, name, lastName, location} = req.body
@@ -56,13 +55,12 @@ const updateUser = async (req,res) => {
   user.name = name
   user.lastName = lastName
   user.location = location
-  user.annualQuota = annualQuota
   
   await user.save()
 
   const token = user.createJWT()
 
-    res.status(StatusCodes.OK).json({user, token, location: user.location, annualQuota: user.annualQuota})
+    res.status(StatusCodes.OK).json({user, token, location: user.location})
 }
 
 export {register, login, updateUser}
