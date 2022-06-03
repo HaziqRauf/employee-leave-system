@@ -66,16 +66,16 @@ const getAllLeaves = async (req, res) => {
 }
 
 const updateLeave = async (req, res) => {
-  const { id: jobId } = req.params
+  const { id: leaveId } = req.params
   const { fromdate, todate } = req.body
   if(!fromdate || !todate) {
     throw new BadRequestError('Please provide all values')
   }
-  const leave = await Leave.findOne({ _id: jobId })
+  const leave = await Leave.findOne({ _id: leaveId })
   if(!leave) {
     throw new NotFoundError(`No job with id:${id}`)
   }
-  const updatedLeave = await Leave.findOneAndUpdate({ _id:jobId },req.body, {
+  const updatedLeave = await Leave.findOneAndUpdate({ _id:leaveId },req.body, {
     new: true,
     runValidators: true,
   })
@@ -85,8 +85,8 @@ const updateLeave = async (req, res) => {
 }
 
 const deleteLeave = async (req, res) => {
-  const { id: jobId } = req.params
-  const leave = await Leave.findOne({ _id: jobId })
+  const { id: leaveId } = req.params
+  const leave = await Leave.findOne({ _id: leaveId })
 
   if(!leave) {
     throw new NotFoundError(`No job with id:${id}`)
@@ -94,7 +94,7 @@ const deleteLeave = async (req, res) => {
   checkPermissions(req.user, leave.createdBy)
 
   await leave.remove()
-  res.status(StatusCodes.OK).json({ msg: 'Success! Job deleted' })
+  res.status(StatusCodes.OK).json({ msg: 'Success! Leave deleted' })
 }
 
 const showStats = async (req, res) => {

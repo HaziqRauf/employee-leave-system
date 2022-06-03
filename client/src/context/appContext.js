@@ -82,7 +82,7 @@ const initialState = {
   sortOptions: ['latest','oldest','a-z','z-a'],
   fromdate: moment().format(formatDate),
   todate: moment().format(formatDate),
-  balance: annualQuota || 0,
+  annualQuota: annualQuota || 0,
   countDay: 0,
   disabledInput: true,
   reason: '',
@@ -309,12 +309,13 @@ const AppProvider = ({children}) => {
     const editLeave = async () => {
       dispatch({ type: EDIT_LEAVE_BEGIN })
       try {
-        const { session, entitlement, fromdate, todate, status } = state
+        const { session, entitlement, fromdate, todate, countDay, status } = state
         await authFetch.patch(`/leaves/${state.editLeaveId}`, {
           session,
           entitlement,
           fromdate,
           todate,
+          countDay,
           status,
         })
         dispatch({ type: EDIT_LEAVE_SUCCESS })

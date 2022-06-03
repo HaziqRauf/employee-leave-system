@@ -30,7 +30,7 @@ const ApplyLeave = () => {
     editLeave,
     fromdate,
     todate,
-    balance,
+    annualQuota,
     countDay,
     disabledInput,
     reason,
@@ -61,7 +61,6 @@ const ApplyLeave = () => {
     period.current = moment.duration(y.diff(x)).as('days')
     day = period.current
     handleDate({day})
-    // countDay = period.current
   }
   useEffect(() => {
     period.current = countDay
@@ -81,9 +80,10 @@ const ApplyLeave = () => {
                list={leaveOptions}
             />
             <FormRow
-               name='balance'
-               defaultValue={balance}
-               value={balance}
+               name='annualQuota'
+               labelText='balance'
+               defaultValue={annualQuota}
+               value={annualQuota}
                disabledInput={disabledInput}
             />
             <FormRow

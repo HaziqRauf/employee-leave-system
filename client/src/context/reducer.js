@@ -38,7 +38,8 @@ import {
   EDIT_LEAVE_ERROR,
 } from './actions';
 
-import {initialState} from './appContext'
+import {initialState, formatDate} from './appContext'
+import moment from 'moment'
 
 const reducer = (state, action) => {
  if(action.type === DISPLAY_ALERT){
@@ -220,16 +221,19 @@ const reducer = (state, action) => {
  }
  if(action.type === SET_EDIT_LEAVE) {
    const leave = state.leaves.find((leave)=> leave._id === action.payload.id)
-   const {_id, session, leaveEntitlement, fromdate, todate, annualQuota, status} = leave
+   const {_id, session, leaveEntitlement, fromdate, todate, countDay, status} = leave
+   const fd = moment(fromdate).format(formatDate)
+   const td = moment(todate).format(formatDate)
    return {
      ...state,
      isEditing: true,
      editLeaveId: _id,
      session,
      leaveEntitlement,
-     fromdate,
-     todate,
-     annualQuota,
+     fromdate: fd,
+     todate: td,
+     annualQuota: state.user.annualQuota,
+     countDay,
      status,
    }
  }
@@ -241,6 +245,7 @@ const reducer = (state, action) => {
  }
  if(action.type === EDIT_LEAVE_SUCCESS){
      return {...state,
+       countDay: state.countDay,
        isLoading: false,
        showAlert: true,
        alertType: 'success',
