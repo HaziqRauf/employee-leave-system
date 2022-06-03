@@ -24,7 +24,7 @@ const LeaveSchema = new mongoose.Schema({
     type: Date,
     required: [true, 'Please provide end date leave'],
   },
-  day: {
+  countDay: {
     type: Number,
     validator: Number.isInteger,
     default: 0,

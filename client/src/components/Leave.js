@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { FaLocationArrow, FaBriefcase, FaCalendarAlt } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-import { useAppContext } from '../context/appContext'
+import { useAppContext, formatDate } from '../context/appContext'
 import Wrapper from '../assets/wrappers/Job'
 import LeaveInfo from './LeaveInfo'
 
@@ -11,21 +11,21 @@ const Leave = ({
   session,
   fromdate,
   todate,
+  countDay,
   createdAt,
   annualQuota,
   status
 }) => {
   const { setEditLeave, deleteLeave } = useAppContext()
-  const format = 'YYYY-MM-DD'
   let date = moment(createdAt)
-  date = date.format(format)
-  fromdate = moment(fromdate).format(format)
-  todate = moment(todate).format(format)
+  date = date.format(formatDate)
+  fromdate = moment(fromdate).format(formatDate)
+  todate = moment(todate).format(formatDate)
   const range = `${fromdate} - ${todate}`
   return (
     <Wrapper>
       <header>
-        <div className='main-icon'>J</div>
+        <div className='main-icon'>{countDay}</div>
         <div className='info'>
           <h5>{session}</h5>
           <p>{entitlement} leave</p>
@@ -35,7 +35,7 @@ const Leave = ({
         <div className='content-center'>
           <LeaveInfo icon={<FaLocationArrow />} text={range}/>
           <LeaveInfo icon={<FaCalendarAlt />} text={date} />
-            {/*<LeaveInfo icon={<FaBriefcase />} text="hai" /> */}
+            <LeaveInfo icon={<FaBriefcase />} text="hai" />
           <div className={`status ${status}`}>{status}</div>
         </div>
         <footer>

@@ -47,6 +47,7 @@ const user = localStorage.getItem('user')
 const userLocation = localStorage.getItem('location')
 const annualQuota = localStorage.getItem('annualQuota')
 
+const formatDate = 'YYYY-MM-DD'
 const initialState = {
   isLoading: false,
   showAlert: false,
@@ -79,8 +80,8 @@ const initialState = {
   searchType: 'all',
   sort: 'latest',
   sortOptions: ['latest','oldest','a-z','z-a'],
-  fromdate: moment().format("yyyy-MM-DD"),
-  todate: moment().format("yyyy-MM-DD"),
+  fromdate: moment().format(formatDate),
+  todate: moment().format(formatDate),
   balance: annualQuota || 0,
   countDay: 0,
   disabledInput: true,
@@ -287,6 +288,7 @@ const AppProvider = ({children}) => {
       try {
         const { data } = await authFetch(url)
         const { leaves, totalLeaves, numOfPages } = data
+        // console.log(leaves)
         dispatch({
           type: GET_LEAVES_SUCCESS,
           payload: {
@@ -425,4 +427,4 @@ const AppProvider = ({children}) => {
 const useAppContext = () => {
   return useContext(AppContext)
 }
-export {AppProvider, initialState, useAppContext}
+export {AppProvider, formatDate, initialState, useAppContext}
