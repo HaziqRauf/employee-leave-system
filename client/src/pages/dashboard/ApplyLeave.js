@@ -10,6 +10,7 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
 const ApplyLeave = () => {
   let period = useRef(0)
+  let day = 0
   const {
     isLoading,
     isEditing,
@@ -22,6 +23,7 @@ const ApplyLeave = () => {
     status,
     statusOptions,
     handleChange,
+    handleDate,
     clearValues,
     createJob,
     editJob,
@@ -53,13 +55,17 @@ const ApplyLeave = () => {
     const value = e.target.value
     handleChange({ name, value })
   }
-  const handleDate = () => {
+  const handleDateInput = (e) => {
     const y = moment(todate)
     const x = moment(fromdate)
     period.current = moment.duration(y.diff(x)).as('days')
+    day = period.current
+    handleDate({day})
+    // countDay = period.current
   }
   useEffect(() => {
     period.current = countDay
+    handleDateInput()
   },[todate, fromdate])
   return (
     <Wrapper>
@@ -98,8 +104,8 @@ const ApplyLeave = () => {
                name='period.current'
                labelText='day'
                value={period.current}
-               handleChange={handleDate}
-               onBlur={handleDate()}
+               handleChange={handleDateInput}
+                /*onBlur={handleDateInput()}*/
                disabledInput={disabledInput}
             />
             {/*session*/}

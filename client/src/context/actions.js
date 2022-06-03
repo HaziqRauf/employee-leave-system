@@ -14,6 +14,8 @@ export const UPDATE_USER_ERROR = 'UPDATE_USER_ERROR'
 
 export const HANDLE_CHANGE = 'HANDLE_CHANGE'
 
+export const HANDLE_DATE = 'HANDLE_DATE'
+
 export const CLEAR_VALUES = 'CLEAR_VALUES'
 
 export const CREATE_JOB_BEGIN = 'CREATE_JOB_BEGIN'

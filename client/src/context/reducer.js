@@ -10,6 +10,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
+  HANDLE_DATE,
   CLEAR_VALUES,
   CREATE_JOB_BEGIN,
   CREATE_JOB_SUCCESS,
@@ -123,6 +124,12 @@ const reducer = (state, action) => {
        ...state,
        page: 1,
        [action.payload.name]: action.payload.value,
+     }
+ }
+ if(action.type === HANDLE_DATE){
+     return {
+       ...state,
+       countDay: action.payload.day,
      }
  }
  if(action.type === CLEAR_VALUES){

@@ -14,6 +14,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   HANDLE_CHANGE,
+  HANDLE_DATE,
   CLEAR_VALUES,
   CREATE_JOB_BEGIN,
   CREATE_JOB_SUCCESS,
@@ -197,6 +198,9 @@ const AppProvider = ({children}) => {
     const handleChange = ({name, value}) => {
       dispatch({ type: HANDLE_CHANGE, payload: {name, value} })
     }
+    const handleDate = ({day}) => {
+      dispatch({ type: HANDLE_DATE, payload: {day} })
+    }
     const clearValues = () => {
       dispatch({ type: CLEAR_VALUES })
     }
@@ -225,12 +229,12 @@ const AppProvider = ({children}) => {
     const applyLeave = async () => {
       dispatch({ type: APPLY_LEAVE_BEGIN })
       try {
-        const {entitlement, fromdate, todate, session, reason} = state
-        console.log(state)
+        const {entitlement, fromdate, todate, countDay, session, reason} = state
         await authFetch.post('/leaves', {
           entitlement,
           fromdate,
           todate,
+          countDay,
           session,
           reason,
         })
@@ -397,6 +401,7 @@ const AppProvider = ({children}) => {
           logoutUser,
           updateUser,
           handleChange,
+          handleDate,
           clearValues,
           createJob,
           applyLeave,
