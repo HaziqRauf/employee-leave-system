@@ -7,7 +7,6 @@ import SmallSidebar from '../components/SmallSidebar';
 import BigSidebar from '../components/BigSidebar';
 import SearchContainer from '../components/SearchContainer';
 import Loading from '../components/Loading';
-import JobsContainer from '../components/JobsContainer';
 import LeavesContainer from '../components/LeavesContainer';
 import StatsContainer from '../components/StatsContainer';
 import ChartsContainer from '../components/ChartsContainer';
@@ -22,7 +21,6 @@ export {
   FormRowSelect,
   SearchContainer,
   Loading,
-  JobsContainer,
   LeavesContainer,
   StatsContainer,
   ChartsContainer,

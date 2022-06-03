@@ -12,14 +12,14 @@ const links = [
   },
   {
     id: 2,
-    text: 'all jobs',
-    path: 'all-jobs',
+    text: 'all leaves',
+    path: 'all-leaves',
     icon: <MdQueryStats />
   },
   {
     id: 3,
-    text: 'add job',
-    path: 'add-job',
+    text: 'apply leave',
+    path: 'apply-leave',
     icon: <FaWpforms />
   },
   {
@@ -27,18 +27,6 @@ const links = [
     text: 'profile',
     path: 'profile',
     icon: <ImProfile />
-  },
-  {
-    id: 5,
-    text: 'all leaves',
-    path: 'all-leaves',
-    icon: <MdQueryStats />
-  },
-  {
-    id: 6,
-    text: 'apply leave',
-    path: 'apply-leave',
-    icon: <FaWpforms />
   },
 ]
 export default links

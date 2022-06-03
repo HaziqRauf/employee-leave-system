@@ -25,8 +25,6 @@ const ApplyLeave = () => {
     handleChange,
     handleDate,
     clearValues,
-    createJob,
-    editJob,
     editLeave,
     fromdate,
     todate,
@@ -50,7 +48,7 @@ const ApplyLeave = () => {
     }
     applyLeave()
   }
-  const handleJobInput = (e) => {
+  const handleLeaveInput = (e) => {
     const name = e.target.name
     const value = e.target.value
     handleChange({ name, value })
@@ -76,7 +74,7 @@ const ApplyLeave = () => {
             <FormRowSelect
                name='entitlement'
                value={entitlement}
-               handleChange={handleJobInput}
+               handleChange={handleLeaveInput}
                list={leaveOptions}
             />
             <FormRow
@@ -91,14 +89,14 @@ const ApplyLeave = () => {
                labelText='from'
                type='date'
                value={fromdate}
-               handleChange={handleJobInput}
+               handleChange={handleLeaveInput}
             />
             <FormRow
                name='todate'
                labelText='to'
                type='date'
                value={todate}
-               handleChange={handleJobInput}
+               handleChange={handleLeaveInput}
             />
             <FormRow
                name='period.current'
@@ -112,14 +110,14 @@ const ApplyLeave = () => {
             <FormRowSelect
                name='session'
                value={session}
-               handleChange={handleJobInput}
+               handleChange={handleLeaveInput}
                list={sessionOptions}
             />
             <FormRow
                type='textarea'
                name='reason'
                value={reason}
-               handleChange={handleJobInput}
+               handleChange={handleLeaveInput}
             />
             <div className='btn-container'>
                <button
