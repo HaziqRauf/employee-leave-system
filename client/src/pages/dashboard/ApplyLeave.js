@@ -11,6 +11,7 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage'
 const ApplyLeave = () => {
   let period = useRef(0)
   let day = 0
+  let today = moment().format('YYYY-MM-DD')
   const {
     isLoading,
     isEditing,
@@ -90,6 +91,8 @@ const ApplyLeave = () => {
                type='date'
                value={fromdate}
                handleChange={handleLeaveInput}
+               max={todate}
+               min={today}
             />
             <FormRow
                name='todate'
@@ -97,13 +100,13 @@ const ApplyLeave = () => {
                type='date'
                value={todate}
                handleChange={handleLeaveInput}
+               min={today}
             />
             <FormRow
                name='period.current'
                labelText='day'
                value={period.current}
                handleChange={handleDateInput}
-                /*onBlur={handleDateInput()}*/
                disabledInput={disabledInput}
             />
             {/*session*/}
