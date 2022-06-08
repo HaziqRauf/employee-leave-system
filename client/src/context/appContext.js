@@ -272,7 +272,7 @@ const AppProvider = ({children}) => {
     const showStats = async () => {
       dispatch({ type: SHOW_STATS_BEGIN})
       try {
-        const { data } = await authFetch('/jobs/stats')
+        const { data } = await authFetch('/leaves/stats')
         dispatch({
           type: SHOW_STATS_SUCCESS,
           payload: {

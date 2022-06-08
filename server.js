@@ -5,8 +5,8 @@ dotenv.config()
 import 'express-async-errors'
 import morgan from 'morgan'
 
-import { dirname } from 'path'
-import { fileURLToPath } from 'url'
+// import { dirname } from 'path'
+// import { fileURLToPath } from 'url'
 import path from 'path'
 
 import helmet from 'helmet'
@@ -18,7 +18,6 @@ import connectDB from './db/connect.js'
 
 //routers
 import authRouter from './routes/authRoutes.js'
-import jobsRouter from './routes/jobsRoutes.js'
 import leavesRouter from './routes/leaveRoutes.js'
 
 //Middleware
@@ -47,13 +46,13 @@ app.get('/api/v1', (req,res) => {
 })*/
 
 app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/jobs', authenticateUser, jobsRouter)
 app.use('/api/v1/leaves', authenticateUser, leavesRouter)
 
+/*
 app.get('*', (req, res)=>{
   res.sendFile(path.resolve(__dirname,'./client/build', 'index.html'))
 })
-
+*/
 app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
 

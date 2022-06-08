@@ -37,11 +37,10 @@ const UserSchema = new mongoose.Schema({
     validator: Number.isInteger,
     default: 12,
   },
-  location: {
+  role: {
     type: String,
-    trim: true,
-    maxlength: 20,
-    default: 'my city',
+    enum: ['admin', 'user'],
+    default: 'user',
   },
 })
 
