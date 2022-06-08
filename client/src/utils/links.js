@@ -8,25 +8,29 @@ const links = [
     id: 1,
     text: 'stats',
     path: '/',
-    icon: <IoBarChartSharp />
+    icon: <IoBarChartSharp />,
+    roles: ['admin']
   },
   {
     id: 2,
     text: 'all leaves',
     path: 'all-leaves',
-    icon: <MdQueryStats />
+    icon: <MdQueryStats />,
+    roles: ['admin']
   },
   {
     id: 3,
     text: 'apply leave',
     path: 'apply-leave',
-    icon: <FaWpforms />
+    icon: <FaWpforms />,
+    roles: ['admin', 'user']
   },
   {
     id: 4,
     text: 'profile',
     path: 'profile',
-    icon: <ImProfile />
+    icon: <ImProfile />,
+    roles: ['admin', 'user']
   },
 ]
 export default links
