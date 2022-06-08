@@ -1,6 +1,5 @@
 import {useAppContext} from '../context/appContext'
 import {Navigate} from 'react-router-dom'
-import {ROLE} from '../context/roles.ts'
 import {Alert} from '../components'
 
 const ProtectedRoute = ({

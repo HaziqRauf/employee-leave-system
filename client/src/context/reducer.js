@@ -127,6 +127,7 @@ const reducer = (state, action) => {
        fromdate: moment().format(formatDate),
        todate: moment().format(formatDate),
        session: 'full day',
+       status: 'pending',
      }
      return {...state, ...initialState}
  }

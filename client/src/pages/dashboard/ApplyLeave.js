@@ -33,7 +33,8 @@ const ApplyLeave = () => {
     countDay,
     disabledInput,
     reason,
-    applyLeave
+    applyLeave,
+    user
   } = useAppContext()
 
   const handleSubmit = (e) => {
@@ -64,7 +65,8 @@ const ApplyLeave = () => {
   useEffect(() => {
     period.current = countDay
     handleDateInput()
-  },[todate, fromdate])
+    //eslint-disable-next-line
+  },[todate, fromdate, countDay])
   return (
     <Wrapper>
       <form className='form'>
@@ -122,6 +124,13 @@ const ApplyLeave = () => {
                value={reason}
                handleChange={handleLeaveInput}
             />
+            { user.role === 'admin' &&
+            <FormRowSelect
+               name='status'
+               value={status}
+               handleChange={handleLeaveInput}
+               list={statusOptions}
+            />}
             <div className='btn-container'>
                <button
                  type='submit'
