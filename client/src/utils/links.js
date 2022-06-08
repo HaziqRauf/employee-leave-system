@@ -16,7 +16,7 @@ const links = [
     text: 'all leaves',
     path: 'all-leaves',
     icon: <MdQueryStats />,
-    roles: ['admin']
+    roles: ['admin', 'user']
   },
   {
     id: 3,

@@ -22,7 +22,7 @@ function App() {
         <Route index element={<Stats />} />
         <Route path='all-leaves'
          element={
-         <ProtectedRoute roles={[Role.Admin]}>
+         <ProtectedRoute roles={[Role.Admin, Role.User]}>
           <AllLeaves />
          </ProtectedRoute>
          } />
