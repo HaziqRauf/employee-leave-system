@@ -1,7 +1,7 @@
 import {useAppContext} from '../context/appContext'
 import {Navigate} from 'react-router-dom'
 import {ROLE} from '../context/roles.ts'
-import Error from './Error'
+import {Alert} from '../components'
 
 const ProtectedRoute = ({
   children,
@@ -10,7 +10,7 @@ const ProtectedRoute = ({
   children: JSX.Element;
   roles: Array<Role>;
 }) => {
-  const {user} = useAppContext()
+  const {user, showAlert} = useAppContext()
   const userHasRequiredRole = user && roles.includes(user.role) ? true: false
   if (!user) {
     return <Navigate to='/landing' />
