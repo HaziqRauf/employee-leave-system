@@ -56,6 +56,7 @@ const reducer = (state, action) => {
        isLoading: false,
        token: action.payload.token,
        user: action.payload.user,
+       allUser: action.payload.allUser,
        annualQuota: action.payload.user.annualQuota,
        showAlert: true,
        alertType: 'success',

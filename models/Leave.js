@@ -29,6 +29,9 @@ const LeaveSchema = new mongoose.Schema({
     validator: Number.isInteger,
     default: 0,
   },
+  reason: {
+    type: String,
+  },
   createdBy: {
     type: mongoose.Types.ObjectId,
     ref: 'User',

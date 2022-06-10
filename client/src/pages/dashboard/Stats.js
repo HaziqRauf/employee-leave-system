@@ -7,7 +7,7 @@ import {
 } from '../../components'
 
 const Stats = () => {
-  const { showStats, isLoading, monthlyApplications } = useAppContext()
+  const { showStats, isLoading, monthlyApplications, user } = useAppContext()
   useEffect(()=> {
     showStats()
       // eslint-disable-next-line
@@ -17,8 +17,8 @@ const Stats = () => {
   }
   return (
     <>
-     <StatsContainer />
-       {monthlyApplications.length > 0 && <ChartsContainer /> }
+      <StatsContainer />
+       { user.role === 'admin' && monthlyApplications.length > 0 && <ChartsContainer /> }
     </>
   )
 }

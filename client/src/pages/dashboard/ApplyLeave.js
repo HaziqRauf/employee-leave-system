@@ -9,9 +9,9 @@ import {useAppContext} from '../../context/appContext'
 import Wrapper from '../../assets/wrappers/DashboardFormPage'
 
 const ApplyLeave = () => {
+  let today = moment().format('YYYY-MM-DD')
   let period = useRef(0)
   let day = 0
-  let today = moment().format('YYYY-MM-DD')
   const {
     isLoading,
     isEditing,
@@ -55,7 +55,8 @@ const ApplyLeave = () => {
     const value = e.target.value
     handleChange({ name, value })
   }
-  const handleDateInput = (e) => {
+  const handleDateInput = () => {
+    handleChange({ todate, fromdate })
     const y = moment(todate)
     const x = moment(fromdate)
     period.current = moment.duration(y.diff(x)).as('days')
@@ -93,7 +94,6 @@ const ApplyLeave = () => {
                type='date'
                value={fromdate}
                handleChange={handleLeaveInput}
-               max={todate}
                min={today}
             />
             <FormRow
@@ -102,7 +102,7 @@ const ApplyLeave = () => {
                type='date'
                value={todate}
                handleChange={handleLeaveInput}
-               min={today}
+               min={fromdate}
             />
             <FormRow
                name='period.current'

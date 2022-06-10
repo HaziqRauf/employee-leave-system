@@ -43,6 +43,7 @@ const initialState = {
   alertText: '',
   alertType: '',
   user: user ? JSON.parse(user) : null,
+  allUser: [],
   token: token,
   showSidebar: false,
   isEditing: false,
@@ -131,11 +132,11 @@ const AppProvider = ({children}) => {
      dispatch({type: SETUP_USER_BEGIN})
      try {
         const {data} = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
-         const {user, token} = data
+         const {user, allUser, token} = data
          const annualQuota = user.annualQuota
          dispatch({
            type: SETUP_USER_SUCCESS,
-           payload: {user, token, alertText},
+           payload: {user, token, allUser, alertText},
          })
         addUserToLocalStorage({user, token, annualQuota})
      }

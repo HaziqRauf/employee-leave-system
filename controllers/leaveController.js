@@ -6,10 +6,12 @@ import {BadRequestError, NotFoundError, UnAuthenticatedError} from '../errors/in
 import checkPermissions from '../utils/checkPermissions.js'
 
 const applyLeave = async (req, res) => {
-  const {fromdate, todate} = req.body
-
+  const {fromdate, todate, countDay} = req.body
   if(!fromdate|| !todate) {
     throw new BadRequestError('Please provide all values')
+  }
+  if(countDay < 0) {
+    throw new BadRequestError('To date must be later than From date')
   }
   req.body.createdBy = req.user.userId
   const leave = await Leave.create(req.body)
@@ -18,8 +20,11 @@ const applyLeave = async (req, res) => {
 
 const getAllLeaves = async (req, res) => {
   const { session, leaveType, sort} = req.query
-  const queryObject = {
-    createdBy: req.user.userId,
+  let queryObject = {}
+  if(req.user.role === 'user') {
+    queryObject = {
+      createdBy: req.user.userId,
+    }
   }
   // const filter = { createdBy: mongoose.Types.ObjectId(req.user.userId) } // empty filter means "match all documents"
   // add stuff based on conditions
@@ -45,10 +50,10 @@ const getAllLeaves = async (req, res) => {
     result = result.sort('createdAt')
   }
   if (sort === 'a-z') {
-    result = result.sort('position')
+    result = result.sort('status')
   }
   if (sort === 'z-a') {
-    result = result.sort('-position')
+    result = result.sort('-status')
   }
 
   const page = Number(req.query.page) || 1
@@ -67,9 +72,12 @@ const getAllLeaves = async (req, res) => {
 
 const updateLeave = async (req, res) => {
   const { id: leaveId } = req.params
-  const { fromdate, todate } = req.body
+  const { fromdate, todate, countDay } = req.body
   if(!fromdate || !todate) {
     throw new BadRequestError('Please provide all values')
+  }
+  if(countDay < 0) {
+    throw new BadRequestError('To date must be later than From date')
   }
   const leave = await Leave.findOne({ _id: leaveId })
   if(!leave) {

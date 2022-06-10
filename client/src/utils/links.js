@@ -9,7 +9,7 @@ const links = [
     text: 'stats',
     path: '/',
     icon: <IoBarChartSharp />,
-    roles: ['admin']
+    roles: ['admin', 'user']
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const links = [
     text: 'apply leave',
     path: 'apply-leave',
     icon: <FaWpforms />,
-    roles: ['admin', 'user']
+    roles: ['user']
   },
   {
     id: 4,
