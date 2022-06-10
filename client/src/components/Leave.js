@@ -17,7 +17,7 @@ const Leave = ({
   annualQuota,
   status
 }) => {
-  const { setEditLeave, deleteLeave, allUser } = useAppContext()
+  const { setEditLeave, deleteLeave, allUser, user } = useAppContext()
   const formatDate = 'DD MMM YYYY'
   let date = moment(createdAt)
   date = date.format(formatDate)
@@ -42,6 +42,7 @@ const Leave = ({
           <div className={`status ${status}`}>{status}</div>
         </div>
         <footer>
+         {user.role ==='admin' && 
           <div className='actions'>
             <Link
               to='/apply-leave'
@@ -58,6 +59,7 @@ const Leave = ({
               Delete
             </button>
           </div>
+         }
         </footer>
       </div>
     </Wrapper>

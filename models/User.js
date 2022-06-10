@@ -42,6 +42,10 @@ const UserSchema = new mongoose.Schema({
     enum: ['admin', 'user'],
     default: 'user',
   },
+  leaves: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Leave',
+  },
 })
 
 UserSchema.pre('save', async function(){

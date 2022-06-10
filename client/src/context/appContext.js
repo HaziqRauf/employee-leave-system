@@ -220,7 +220,6 @@ const AppProvider = ({children}) => {
       try {
         const { data } = await authFetch(url)
         const { leaves, totalLeaves, numOfPages } = data
-        // console.log(leaves)
         dispatch({
           type: GET_LEAVES_SUCCESS,
           payload: {
