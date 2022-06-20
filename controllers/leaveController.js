@@ -16,7 +16,11 @@ const applyLeave = async (req, res) => {
   }
   req.body.createdBy = req.user.userId
   const leave = await Leave.create(req.body)
-  res.status(StatusCodes.CREATED).json({ leave })
+  const user = await User.findOne({ _id: req.user.userId })
+  let leavArr = user.leaves
+  leavArr.push(leave)
+  const pushLeave = await User.findOneAndUpdate({_id: req.user.userId},{leaves: leavArr})
+  res.status(StatusCodes.CREATED).json({ leave, pushLeave })
 }
 
 const getAllLeaves = async (req, res) => {
@@ -36,26 +40,47 @@ const getAllLeaves = async (req, res) => {
     queryObject.entitlement = leaveType
   }
   let result = ''
+  let query = ''
   if(search){
-    queryObject.name = { $regex: search, $options: 'i' }
-    result = Leave.find(queryObject).populate('createdBy')
+    // queryObject.name = { $regex: search, $options: 'i' }
+    result = await Leave.aggregate([
+     { $lookup:
+        {
+          from: 'user',
+          localField: '_id',
+          foreignField: 'leaves',
+          as: 'user_leave'
+        }
+     }
+  ])
   }
-  // queryObject.createdBy = passId
 
   // NO AWAIT
   result = Leave.find(queryObject)
+  
   console.log(result)
+  // console.log(result)
     /*
-  let result = Leave.aggregate([
+  let result = User.aggregate([
       { $match: { name: passName} },
   ])
-    *    { $lookup:
-        {
-          from: 'user',
-          localField: 'createdBy',
-          foreignField: '_id',
-          as: 'user'
-        }
+
+       {
+        from: 'user',
+        pipeline: [{$match: 
+          {$and: [
+            { $regex: search, $options: 'i' },
+            {
+              $expr: {
+                $eq: [
+                  '$createdBy','$_id'
+                ],
+              }
+            },
+          ]}
+        }],
+        as: 'userLeave'
+       }
   }*/
 
   //Chain sort conditions
@@ -112,16 +137,21 @@ const updateLeave = async (req, res) => {
 }
 
 const deleteLeave = async (req, res) => {
+  console.log(req.query)
   const { id: leaveId } = req.params
   const leave = await Leave.findOne({ _id: leaveId })
+  console.log(req.leave)
 
+  let leavArr = req.user.leaves
+  // leavArr.pop(leave)
+  const pushLeave = await User.findOneAndUpdate({_id: req.user.userId},{leaves: leavArr})
   if(!leave) {
     throw new NotFoundError(`No job with id:${id}`)
   }
-  checkPermissions(req.user, leave.createdBy)
+  // checkPermissions(req.user, leave.createdBy)
 
-  await leave.remove()
-  res.status(StatusCodes.OK).json({ msg: 'Success! Leave deleted' })
+  // await leave.remove()
+  res.status(StatusCodes.OK).json({ pushLeave, msg: 'Success! Leave deleted' })
 }
 
 const showStats = async (req, res) => {

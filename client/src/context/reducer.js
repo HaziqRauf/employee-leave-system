@@ -189,7 +189,7 @@ const reducer = (state, action) => {
    }
  }
  if(action.type === DELETE_LEAVE_BEGIN){
-   return { ...state, isLoading: true }
+     return { ...state, isLoading: true }
  }
  if(action.type === EDIT_LEAVE_BEGIN){
      return { ...state, isLoading: true }
