@@ -14,8 +14,8 @@ const StatsContainer = () => {
       bcg: '#fcefc7',
     },
     {
-      title: 'leaves scheduled',
-      count: stats.interview || 0,
+      title: 'leaves approved',
+      count: stats.approved || 0,
       icon: <FaCalendarCheck />,
       color: '#647acb',
       bcg: '#e08f9',

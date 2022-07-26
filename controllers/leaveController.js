@@ -132,7 +132,7 @@ const updateLeave = async (req, res) => {
     runValidators: true,
   })
   // check permissions
-  checkPermissions(req.user, leave.createdBy)
+  // checkPermissions(req.user, leave.createdBy)
   res.status(StatusCodes.OK).json({ updatedLeave })
 }
 
@@ -174,7 +174,7 @@ const showStats = async (req, res) => {
 
   const defaultStats = {
     pending: stats.pending || 0,
-    interview: stats.interview || 0,
+    approved: stats.approved || 0,
     declined: stats.declined || 0,
   }
   let monthlyApplications = await Leave.aggregate([

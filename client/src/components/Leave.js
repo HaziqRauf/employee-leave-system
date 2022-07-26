@@ -24,7 +24,7 @@ const Leave = ({
   fromdate = moment(fromdate).format(formatDate)
   todate = moment(todate).format(formatDate)
   const range = `${fromdate} - ${todate}`
-  // const alu = allUser.filter((k)=> k._id === createdBy)
+  const alu = allUser.filter((k)=> k._id === createdBy)
   return (
     <Wrapper>
       <header>
@@ -38,7 +38,8 @@ const Leave = ({
         <div className='content-center'>
           <LeaveInfo icon={<FaLocationArrow />} text={range}/>
           <LeaveInfo icon={<FaCalendarAlt />} text={date} />
-            <LeaveInfo icon={<FaBriefcase />} text='aina'/> {/*{alu[0].name}*/ }
+         {user.role ==='admin' && 
+            <LeaveInfo icon={<FaBriefcase />} text={alu[0].name}/> }
           <div className={`status ${status}`}>{status}</div>
         </div>
         <footer>

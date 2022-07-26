@@ -8,7 +8,7 @@ const LeaveSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['interview', 'declined', 'pending'],
+    enum: ['approved', 'declined', 'pending'],
     default: 'pending',
   },
   session: {

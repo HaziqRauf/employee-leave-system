@@ -69,7 +69,7 @@ const initialState = {
   countDay: 0,
   disabledInput: true,
   reason: '',
-  statusOptions: ['interview', 'declined', 'pending'],
+  statusOptions: ['approved', 'declined', 'pending'],
   status: 'pending',
 }
 

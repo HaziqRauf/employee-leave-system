@@ -45,9 +45,9 @@ const Wrapper = styled.article`
     background: #fcefc7;
     color: #e9b949;
   }
-  .interview {
-    background: #e0e8f9;
-    color: #647acb;
+  .approved {
+    background: #e0f9f1;
+    color: #42db7f;
   }
   .declined {
     color: #d66a6a;
